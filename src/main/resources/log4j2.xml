@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <RollingFile name="RollingFileAppender" fileName="logs/application.log"
+                     filePattern="logs/$${date:yyyy-MM}/application.log-%d{yyyy-MM-dd-HH}-%i.gz">
+            <PatternLayout>
+                <Pattern>[%d][%t][%p] %c{1} - %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="ERROR">
+            <AppenderRef ref="RollingFileAppender"/>
+        </Root>
+        <Logger name="com.maoshouse" level="INFO" additivity="false">
+            <AppenderRef ref="RollingFileAppender"/>
+        </Logger>
+    </Loggers>
+</Configuration>
