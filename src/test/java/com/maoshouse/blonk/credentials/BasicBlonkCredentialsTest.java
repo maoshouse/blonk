@@ -1,7 +1,7 @@
 package com.maoshouse.blonk.credentials;
 
-import com.maoshouse.blonk.constants.LoginConstants;
-import com.maoshouse.blonk.rest.BlonkRestApiWrapper;
+import com.maoshouse.blonk.client.BlonkClient;
+import com.maoshouse.blonk.constants.BlonkTestConstants;
 import lombok.SneakyThrows;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -15,7 +15,7 @@ import static org.testng.Assert.assertEquals;
 public class BasicBlonkCredentialsTest {
 
     @Mock
-    private BlonkRestApiWrapper blonkRestApiWrapper;
+    private BlonkClient blonkClient;
 
     @BeforeMethod
     void beforeMethod() {
@@ -25,8 +25,8 @@ public class BasicBlonkCredentialsTest {
     @SneakyThrows
     @Test
     void testGetAuthToken() {
-        when(blonkRestApiWrapper.login(eq(LoginConstants.USER_NAME), eq(LoginConstants.PASSWORD))).thenReturn(LoginConstants.AUTH_TOKEN);
-        BasicBlonkCredentials basicBlonkCredentials = new BasicBlonkCredentials(blonkRestApiWrapper, LoginConstants.USER_NAME, LoginConstants.PASSWORD);
-        assertEquals(basicBlonkCredentials.getAuthToken(), LoginConstants.AUTH_TOKEN);
+        when(blonkClient.login(eq(BlonkTestConstants.USER_NAME), eq(BlonkTestConstants.PASSWORD))).thenReturn(BlonkTestConstants.AUTH_TOKEN);
+        BasicBlonkCredentials basicBlonkCredentials = new BasicBlonkCredentials(blonkClient, BlonkTestConstants.USER_NAME, BlonkTestConstants.PASSWORD);
+        assertEquals(basicBlonkCredentials.getAuthToken(), BlonkTestConstants.AUTH_TOKEN);
     }
 }
