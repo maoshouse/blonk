@@ -28,6 +28,11 @@ public class BlonkHttpRequest {
         return new BlonkHttpRequest(uri);
     }
 
+    private BlonkHttpRequest() {
+        // Hiding default constructor. BlonkHttpRequest should not be instantiated this way.
+        httpRequestBuilder = createHttpRequestBuilder();
+    }
+
     private BlonkHttpRequest(URI uri) {
         Preconditions.checkNotNull(uri);
         httpRequestBuilder = createHttpRequestBuilder().uri(uri);

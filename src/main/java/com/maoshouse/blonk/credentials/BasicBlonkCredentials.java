@@ -22,7 +22,7 @@ public class BasicBlonkCredentials implements BlonkCredentials {
     @Override
     public AuthToken getAuthToken() throws CredentialsException {
         try {
-            return blonkClient.login(email, password);
+            return blonkClient.login();
         } catch (BlonkClientException | RestApiException exception) {
             throw new CredentialsException(exception);
         }

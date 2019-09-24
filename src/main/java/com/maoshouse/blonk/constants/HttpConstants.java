@@ -11,8 +11,4 @@ public final class HttpConstants {
     public class ContentType {
         public static final String APPLICATION_JSON = "application/json";
     }
-
-    public class Endpoints {
-        public static final String LOGIN_ENDPOINT = "login";
-    }
 }

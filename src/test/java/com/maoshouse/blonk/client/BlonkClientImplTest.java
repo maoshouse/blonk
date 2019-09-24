@@ -50,16 +50,16 @@ public class BlonkClientImplTest {
     void testLogin() {
         when(blonkRestApiWrapper.executeHttpRequest(any(HttpRequest.class))).thenReturn(httpResponse);
         when(responseParser.getAsStringIfExists(AUTH_TOKEN_MEMBER, httpResponse)).thenReturn(BlonkTestConstants.AUTH_TOKEN.toJson());
-        final BlonkClient blonkClient = new BlonkClientImpl(blonkRestApiWrapper, responseParser);
-        assertEquals(blonkClient.login(BlonkTestConstants.USER_NAME, BlonkTestConstants.PASSWORD), BlonkTestConstants.AUTH_TOKEN);
+        final BlonkClient blonkClient = new BlonkClientImpl(blonkRestApiWrapper, responseParser, BlonkTestConstants.USER_NAME, BlonkTestConstants.PASSWORD);
+        assertEquals(blonkClient.login(), BlonkTestConstants.AUTH_TOKEN);
     }
 
     @SneakyThrows
     @Test
     void testLoginFailure_ApiRequestError() {
         when(blonkRestApiWrapper.executeHttpRequest(any(HttpRequest.class))).thenThrow(BlonkTestConstants.REST_API_EXCEPTION);
-        final BlonkClient blonkClient = new BlonkClientImpl(blonkRestApiWrapper, responseParser);
-        assertThrows(RestApiException.class, () -> blonkClient.login(BlonkTestConstants.USER_NAME, BlonkTestConstants.PASSWORD));
+        final BlonkClient blonkClient = new BlonkClientImpl(blonkRestApiWrapper, responseParser, BlonkTestConstants.USER_NAME, BlonkTestConstants.PASSWORD);
+        assertThrows(RestApiException.class, () -> blonkClient.login());
     }
 
     @SneakyThrows
@@ -67,7 +67,7 @@ public class BlonkClientImplTest {
     void testLoginFailure_ResponseParsingError(Exception exception) {
         when(blonkRestApiWrapper.executeHttpRequest(any(HttpRequest.class))).thenReturn(httpResponse);
         when(responseParser.getAsStringIfExists(AUTH_TOKEN_MEMBER, httpResponse)).thenThrow(exception);
-        final BlonkClient blonkClient = new BlonkClientImpl(blonkRestApiWrapper, responseParser);
-        assertThrows(BlonkClientException.class, () -> blonkClient.login(BlonkTestConstants.USER_NAME, BlonkTestConstants.PASSWORD));
+        final BlonkClient blonkClient = new BlonkClientImpl(blonkRestApiWrapper, responseParser, BlonkTestConstants.USER_NAME, BlonkTestConstants.PASSWORD);
+        assertThrows(BlonkClientException.class, () -> blonkClient.login());
     }
 }

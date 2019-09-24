@@ -44,7 +44,7 @@ public class ResponseParser {
         return getIfExists(memberName, parseStringAsJsonObject(httpResponse.body())).getAsJsonObject();
     }
 
-    public JsonElement getIfExists(final String memberName, final JsonObject jsonObject) throws NotFoundException {
+    private JsonElement getIfExists(final String memberName, final JsonObject jsonObject) throws NotFoundException {
         if (jsonObject.has(memberName)) {
             return jsonObject.get(memberName);
         } else {
