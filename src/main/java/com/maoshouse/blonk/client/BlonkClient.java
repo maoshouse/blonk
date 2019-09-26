@@ -9,5 +9,5 @@ public interface BlonkClient {
 
     AuthToken login() throws BlonkClientException, RestApiException;
 
-    Network networks() throws RestApiException, BlonkClientException;
+    Network network() throws RestApiException, BlonkClientException;
 }

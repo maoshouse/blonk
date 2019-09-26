@@ -49,7 +49,7 @@ public class BlonkClientImpl implements BlonkClient {
     }
 
     @Override
-    public Network networks() throws RestApiException, BlonkClientException {
+    public Network network() throws RestApiException, BlonkClientException {
         return new NetworkImpl(login(), blonkRestApiWrapper, responseParser, new ResponseSerdes());
     }
 }
