@@ -1,6 +1,8 @@
 package com.maoshouse.blonk.client;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.maoshouse.blonk.client.media.Media;
+import com.maoshouse.blonk.client.media.MediaImpl;
 import com.maoshouse.blonk.client.network.Network;
 import com.maoshouse.blonk.client.network.NetworkImpl;
 import com.maoshouse.blonk.exception.BlonkClientException;
@@ -51,5 +53,10 @@ public class BlonkClientImpl implements BlonkClient {
     @Override
     public Network network() throws RestApiException, BlonkClientException {
         return new NetworkImpl(login(), blonkRestApiWrapper, responseParser, new ResponseSerdes());
+    }
+
+    @Override
+    public Media media() throws RestApiException, BlonkClientException {
+        return new MediaImpl(login(), blonkRestApiWrapper, responseParser, new ResponseSerdes());
     }
 }
