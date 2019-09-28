@@ -8,5 +8,6 @@ import com.maoshouse.blonk.exception.RestApiException;
 
 public interface Media {
 
-    ListChangedMediaResponse listChangedMedia(final ListChangedMediaRequest request) throws RestApiException, NotFoundException, ResponseParsingException;
+    ListChangedMediaResponse listChangedMedia(final ListChangedMediaRequest request) throws RestApiException,
+            NotFoundException, ResponseParsingException;
 }

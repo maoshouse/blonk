@@ -19,8 +19,9 @@ public class ResponseSerdes {
     public static final Type LIST_OF_BLONK_MEDIA_TYPE = new TypeToken<List<BlonkMedia>>() {
     }.getType();
 
-    private static final Gson GSON = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, type, jsonDeserializationContext) ->
-            ZonedDateTime.parse(json.getAsJsonPrimitive().getAsString()).toLocalDateTime()).create();
+    private static final Gson GSON = new GsonBuilder().registerTypeAdapter(LocalDateTime.class,
+            (JsonDeserializer<LocalDateTime>) (json, type, jsonDeserializationContext) ->
+                    ZonedDateTime.parse(json.getAsJsonPrimitive().getAsString()).toLocalDateTime()).create();
 
     public <T> T fromJson(String json, Type typeOfT) {
         return GSON.fromJson(json, typeOfT);

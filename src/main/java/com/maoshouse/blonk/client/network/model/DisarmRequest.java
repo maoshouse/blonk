@@ -7,6 +7,7 @@ import lombok.Value;
 @RequiredArgsConstructor
 @Value
 public class DisarmRequest {
+
     @NonNull
     private final BlonkNetwork blonkNetwork;
 }

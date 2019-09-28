@@ -22,7 +22,8 @@ public class BlonkRestApiWrapper {
 
     public HttpResponse executeHttpRequest(final HttpRequest httpRequest) throws RestApiException {
         try {
-            HttpResponse httpResponse = httpClient.send(httpRequest, java.net.http.HttpResponse.BodyHandlers.ofString());
+            HttpResponse httpResponse = httpClient.send(httpRequest,
+                    java.net.http.HttpResponse.BodyHandlers.ofString());
             checkResponseCode(httpResponse);
             return httpResponse;
         } catch (IOException | InterruptedException exception) {

@@ -15,6 +15,7 @@ import java.net.http.HttpResponse;
 
 @RequiredArgsConstructor
 public class ResponseParser {
+
     private static final String MEMBER_NOT_FOUND_MESSAGE_FORMAT = "Member %s was not found in %s.";
     private static final String JSON_PARSE_FAILURE_MESSAGE_FORMAT = "Failed to parse JSON: %s.";
 
@@ -48,7 +49,8 @@ public class ResponseParser {
         if (jsonObject.has(memberName)) {
             return jsonObject.get(memberName);
         } else {
-            throw new NotFoundException(String.format(MEMBER_NOT_FOUND_MESSAGE_FORMAT, memberName, jsonObject.toString()));
+            throw new NotFoundException(String.format(MEMBER_NOT_FOUND_MESSAGE_FORMAT, memberName,
+                    jsonObject.toString()));
         }
     }
 

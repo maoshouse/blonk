@@ -41,7 +41,8 @@ public class BlonkClientImpl implements BlonkClient {
     @Override
     public AuthToken login() throws BlonkClientException, RestApiException {
         try {
-            java.net.http.HttpRequest httpRequest = BlonkHttpRequest.post(BlonkEndpoint.LOGIN_API_ENDPOINT, String.format(LOGIN_REQUEST_JSON_FORMAT, userName, password))
+            java.net.http.HttpRequest httpRequest = BlonkHttpRequest.post(BlonkEndpoint.LOGIN_API_ENDPOINT,
+                    String.format(LOGIN_REQUEST_JSON_FORMAT, userName, password))
                     .build();
             HttpResponse<String> httpResponse = blonkRestApiWrapper.executeHttpRequest(httpRequest);
             return AuthToken.fromJson(responseParser.getAsStringIfExists(AUTH_TOKEN_MEMBER, httpResponse));

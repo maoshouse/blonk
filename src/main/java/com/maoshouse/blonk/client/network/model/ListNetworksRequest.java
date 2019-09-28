@@ -6,4 +6,5 @@ import lombok.Value;
 @RequiredArgsConstructor
 @Value
 public class ListNetworksRequest {
+
 }

@@ -3,6 +3,7 @@ package com.maoshouse.blonk.rest;
 import java.net.URI;
 
 public final class BlonkEndpoint {
+
     private static final String API_ENDPOINT_FORMAT = "https://rest.prod.immedia-semi.com/%s";
 
     public static URI LOGIN_API_ENDPOINT = createApiEndpoint("login");

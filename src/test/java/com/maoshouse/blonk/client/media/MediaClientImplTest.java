@@ -88,7 +88,8 @@ public class MediaClientImplTest {
         when(blonkRestApiWrapper.executeHttpRequest(any(HttpRequest.class))).thenReturn(httpResponse);
         when(responseParser.getAsStringIfExists(anyString(), eq(httpResponse))).thenReturn(JSON_PLACEHOLDER);
         when(responseSerdes.fromJson(anyString(), any())).thenReturn(BLONK_MEDIA_LIST);
-        final Media media = new MediaImpl(BlonkTestConstants.AUTH_TOKEN, blonkRestApiWrapper, responseParser, responseSerdes);
+        final Media media = new MediaImpl(BlonkTestConstants.AUTH_TOKEN, blonkRestApiWrapper, responseParser,
+                responseSerdes);
         ListChangedMediaResponse listChangedMediaResponse = media.listChangedMedia(listChangedMediaRequest);
         assertEquals(listChangedMediaResponse.getBlonkMedia(), BLONK_MEDIA_LIST);
         ArgumentCaptor<HttpRequest> httpRequestArgumentCaptor = ArgumentCaptor.forClass(HttpRequest.class);
@@ -96,6 +97,7 @@ public class MediaClientImplTest {
         HttpRequest httpRequest = httpRequestArgumentCaptor.getValue();
         String queryString = httpRequest.uri().getQuery();
         assertTrue(queryString.contains(String.format(PAGE_QUERY_FORMAT, page)));
-        assertTrue(queryString.contains(String.format(SINCE_QUERY_FORMAT, LocalDateTime.ofInstant(SINCE_QUERY_INSTANT, ZoneId.systemDefault()))));
+        assertTrue(queryString.contains(String.format(SINCE_QUERY_FORMAT, LocalDateTime.ofInstant(SINCE_QUERY_INSTANT
+                , ZoneId.systemDefault()))));
     }
 }

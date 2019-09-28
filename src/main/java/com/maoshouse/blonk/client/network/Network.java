@@ -14,11 +14,14 @@ import com.maoshouse.blonk.exception.RestApiException;
 
 public interface Network {
 
-    ListNetworksResponse listNetworks(final ListNetworksRequest request) throws RestApiException, NotFoundException, ResponseParsingException;
+    ListNetworksResponse listNetworks(final ListNetworksRequest request) throws RestApiException, NotFoundException,
+            ResponseParsingException;
 
     ArmResponse arm(final ArmRequest request) throws RestApiException, NotFoundException, ResponseParsingException;
 
-    DisarmResponse disArm(final DisarmRequest request) throws RestApiException, NotFoundException, ResponseParsingException;
+    DisarmResponse disArm(final DisarmRequest request) throws RestApiException, NotFoundException,
+            ResponseParsingException;
 
-    GetCommandStatusResponse getCommandStatus(final GetCommandStatusRequest request) throws RestApiException, NotFoundException, ResponseParsingException;
+    GetCommandStatusResponse getCommandStatus(final GetCommandStatusRequest request) throws RestApiException,
+            NotFoundException, ResponseParsingException;
 }

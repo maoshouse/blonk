@@ -8,6 +8,7 @@ import com.maoshouse.blonk.model.AuthToken;
 import java.net.URI;
 
 public class BlonkHttpRequest {
+
     private static final String USER_AGENT_FORMAT = "%s/%s";
 
     private final java.net.http.HttpRequest.Builder httpRequestBuilder;
@@ -72,6 +73,7 @@ public class BlonkHttpRequest {
     private java.net.http.HttpRequest.Builder createHttpRequestBuilder() {
         return java.net.http.HttpRequest.newBuilder()
                 .header(HttpConstants.Headers.CONTENT_TYPE, HttpConstants.ContentType.APPLICATION_JSON)
-                .header(HttpConstants.Headers.USER_AGENT, String.format(USER_AGENT_FORMAT, BlonkConstants.APPLICATION_NAME, BlonkConstants.APPLICATION_VERSION));
+                .header(HttpConstants.Headers.USER_AGENT, String.format(USER_AGENT_FORMAT,
+                        BlonkConstants.APPLICATION_NAME, BlonkConstants.APPLICATION_VERSION));
     }
 }

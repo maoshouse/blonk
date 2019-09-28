@@ -10,6 +10,7 @@ import java.lang.reflect.Type;
 
 @Value
 public class AuthToken {
+
     private static final Type AUTH_TOKEN_TYPE = new TypeToken<AuthToken>() {
     }.getType();
 

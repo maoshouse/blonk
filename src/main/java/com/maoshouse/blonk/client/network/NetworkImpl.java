@@ -44,7 +44,8 @@ public class NetworkImpl extends BlonkAuthenticatedClient implements Network {
     @NonNull
     private ResponseSerdes responseSerdes;
 
-    public NetworkImpl(@NonNull final AuthToken authToken, final BlonkRestApiWrapper blonkRestApiWrapper, final ResponseParser responseParser, final ResponseSerdes responseSerdes) {
+    public NetworkImpl(@NonNull final AuthToken authToken, final BlonkRestApiWrapper blonkRestApiWrapper,
+                       final ResponseParser responseParser, final ResponseSerdes responseSerdes) {
         super(authToken);
         this.blonkRestApiWrapper = Preconditions.checkNotNull(blonkRestApiWrapper);
         this.responseParser = Preconditions.checkNotNull(responseParser);
@@ -52,19 +53,23 @@ public class NetworkImpl extends BlonkAuthenticatedClient implements Network {
     }
 
     @Override
-    public ListNetworksResponse listNetworks(final ListNetworksRequest request) throws RestApiException, NotFoundException, ResponseParsingException {
+    public ListNetworksResponse listNetworks(final ListNetworksRequest request) throws RestApiException,
+            NotFoundException, ResponseParsingException {
         Preconditions.checkNotNull(request);
 
-        HttpResponse httpResponse = blonkRestApiWrapper.executeHttpRequest(BlonkHttpRequest.get(BlonkEndpoint.NETWORKS_API_ENDPOINT)
-                .withAuthToken(getAuthToken())
-                .build());
+        HttpResponse httpResponse =
+                blonkRestApiWrapper.executeHttpRequest(BlonkHttpRequest.get(BlonkEndpoint.NETWORKS_API_ENDPOINT)
+                        .withAuthToken(getAuthToken())
+                        .build());
         String networksJsonArray = responseParser.getAsStringIfExists(NETWORKS_MEMBER_NAME, httpResponse);
-        List<BlonkNetwork> blonkNetworks = responseSerdes.fromJson(networksJsonArray, ResponseSerdes.LIST_OF_BLONK_NETWORKS_TYPE);
+        List<BlonkNetwork> blonkNetworks = responseSerdes.fromJson(networksJsonArray,
+                ResponseSerdes.LIST_OF_BLONK_NETWORKS_TYPE);
         return new ListNetworksResponse(blonkNetworks);
     }
 
     @Override
-    public ArmResponse arm(final ArmRequest request) throws RestApiException, NotFoundException, ResponseParsingException {
+    public ArmResponse arm(final ArmRequest request) throws RestApiException, NotFoundException,
+            ResponseParsingException {
         Preconditions.checkNotNull(request);
 
         String endpoint = String.format(ARM_ENDPOINT_FORMAT, request.getBlonkNetwork().getId());
@@ -72,25 +77,30 @@ public class NetworkImpl extends BlonkAuthenticatedClient implements Network {
     }
 
     @Override
-    public DisarmResponse disArm(final DisarmRequest request) throws RestApiException, NotFoundException, ResponseParsingException {
+    public DisarmResponse disArm(final DisarmRequest request) throws RestApiException, NotFoundException,
+            ResponseParsingException {
         Preconditions.checkNotNull(request);
 
         String endpoint = String.format(DISARM_ENDPOINT_FORMAT, request.getBlonkNetwork().getId());
         return new DisarmResponse(executeNetworkCommand(BlonkEndpoint.createApiEndpoint(endpoint)));
     }
 
-    public GetCommandStatusResponse getCommandStatus(final GetCommandStatusRequest request) throws RestApiException, NotFoundException, ResponseParsingException {
+    public GetCommandStatusResponse getCommandStatus(final GetCommandStatusRequest request) throws RestApiException,
+            NotFoundException, ResponseParsingException {
         Preconditions.checkNotNull(request);
 
-        String endpoint = String.format(GET_COMMAND_STATUS_ENDPOINT_FORMAT, request.getBlonkNetwork().getId(), request.getCommand().getId());
-        HttpResponse httpResponse = blonkRestApiWrapper.executeHttpRequest(BlonkHttpRequest.get(BlonkEndpoint.createApiEndpoint(endpoint))
-                .withAuthToken(getAuthToken())
-                .build());
+        String endpoint = String.format(GET_COMMAND_STATUS_ENDPOINT_FORMAT, request.getBlonkNetwork().getId(),
+                request.getCommand().getId());
+        HttpResponse httpResponse =
+                blonkRestApiWrapper.executeHttpRequest(BlonkHttpRequest.get(BlonkEndpoint.createApiEndpoint(endpoint))
+                        .withAuthToken(getAuthToken())
+                        .build());
         String complete = responseParser.getAsStringIfExists(COMMAND_STATUS_COMPLETE_MEMBER_NAME, httpResponse);
         return new GetCommandStatusResponse(new CommandStatus(Boolean.parseBoolean(complete)));
     }
 
-    private Command executeNetworkCommand(final URI endpoint) throws RestApiException, NotFoundException, ResponseParsingException {
+    private Command executeNetworkCommand(final URI endpoint) throws RestApiException, NotFoundException,
+            ResponseParsingException {
         HttpResponse httpResponse = blonkRestApiWrapper.executeHttpRequest(BlonkHttpRequest.post(endpoint, "{}")
                 .withAuthToken(getAuthToken())
                 .build());

@@ -65,7 +65,8 @@ public class NetworkImplTest {
         when(blonkRestApiWrapper.executeHttpRequest(any(HttpRequest.class))).thenReturn(httpResponse);
         when(responseParser.getAsStringIfExists(anyString(), eq(httpResponse))).thenReturn(JSON_PLACEHOLDER);
         when(responseSerdes.fromJson(anyString(), any())).thenReturn(BLONK_NETWORKS);
-        final Network network = new NetworkImpl(BlonkTestConstants.AUTH_TOKEN, blonkRestApiWrapper, responseParser, responseSerdes);
+        final Network network = new NetworkImpl(BlonkTestConstants.AUTH_TOKEN, blonkRestApiWrapper, responseParser,
+                responseSerdes);
         ListNetworksResponse listNetworksResponse = network.listNetworks(new ListNetworksRequest());
         assertEquals(listNetworksResponse.getBlonkNetworks(), BLONK_NETWORKS);
     }
@@ -75,7 +76,8 @@ public class NetworkImplTest {
     void testArm() {
         when(blonkRestApiWrapper.executeHttpRequest(any(HttpRequest.class))).thenReturn(httpResponse);
         when(responseParser.getAsStringIfExists(anyString(), eq(httpResponse))).thenReturn(JSON_PLACEHOLDER);
-        final Network network = new NetworkImpl(BlonkTestConstants.AUTH_TOKEN, blonkRestApiWrapper, responseParser, responseSerdes);
+        final Network network = new NetworkImpl(BlonkTestConstants.AUTH_TOKEN, blonkRestApiWrapper, responseParser,
+                responseSerdes);
         ArmResponse armResponse = network.arm(new ArmRequest(BLONK_NETWORK));
         assertEquals(armResponse.getCommand().getId(), JSON_PLACEHOLDER);
     }
@@ -85,7 +87,8 @@ public class NetworkImplTest {
     void testDisarm() {
         when(blonkRestApiWrapper.executeHttpRequest(any(HttpRequest.class))).thenReturn(httpResponse);
         when(responseParser.getAsStringIfExists(anyString(), eq(httpResponse))).thenReturn(JSON_PLACEHOLDER);
-        final Network network = new NetworkImpl(BlonkTestConstants.AUTH_TOKEN, blonkRestApiWrapper, responseParser, responseSerdes);
+        final Network network = new NetworkImpl(BlonkTestConstants.AUTH_TOKEN, blonkRestApiWrapper, responseParser,
+                responseSerdes);
         DisarmResponse disarmResponse = network.disArm(new DisarmRequest(BLONK_NETWORK));
         assertEquals(disarmResponse.getCommand().getId(), JSON_PLACEHOLDER);
     }
@@ -95,8 +98,10 @@ public class NetworkImplTest {
     void testGetCommandStatus() {
         when(blonkRestApiWrapper.executeHttpRequest(any(HttpRequest.class))).thenReturn(httpResponse);
         when(responseParser.getAsStringIfExists(anyString(), eq(httpResponse))).thenReturn(Boolean.TRUE.toString());
-        final Network network = new NetworkImpl(BlonkTestConstants.AUTH_TOKEN, blonkRestApiWrapper, responseParser, responseSerdes);
-        GetCommandStatusResponse getCommandStatusResponse = network.getCommandStatus(new GetCommandStatusRequest(BLONK_NETWORK, COMMAND));
+        final Network network = new NetworkImpl(BlonkTestConstants.AUTH_TOKEN, blonkRestApiWrapper, responseParser,
+                responseSerdes);
+        GetCommandStatusResponse getCommandStatusResponse =
+                network.getCommandStatus(new GetCommandStatusRequest(BLONK_NETWORK, COMMAND));
         assertEquals(getCommandStatusResponse.getCommandStatus().isComplete(), Boolean.TRUE.booleanValue());
     }
 }
